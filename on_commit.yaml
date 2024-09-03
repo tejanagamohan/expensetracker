@@ -1,0 +1,39 @@
+name: CI/CD Pieline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: checkout code
+      uses: actions/checkout@v3
+
+    - name: rebase code
+      run: |
+        git config user.name "Github Actions"
+        git config user.email "actions@github.com"
+        git config core.editor true
+        git fetch origin main
+        TIMESTAMP=$(date +'%Y-%m-%d_%H-%M-%S')
+        git rebase -i origin/main
+        git commit --allow-empty -m "rebase, $TIMESTAMP"
+        git push origin main --force
+    
+    - name: build image
+      run : docker build -t manjunadh965/expense:${{ github.sha }} .
+
+    - name: docker login 
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+    
+    - name: push image
+      run : docker push manjunadh965/expense:${{ github.sha }}
+
+    
