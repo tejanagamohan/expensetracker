@@ -18,7 +18,7 @@ jobs:
         git config user.name "Github Actions"
         git config user.email "actions@github.com"
         TIMESTAMP=$(date +'%Y-%m-%d_%H-%M-%S')
-        git rebase -i HEAD~2
+        git rebase -i origin/main
         git commit --allow-empty -m "rebase, $TIMESTAMP"
         git push origin main --force
     
