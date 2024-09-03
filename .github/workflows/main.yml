@@ -26,8 +26,8 @@ jobs:
     
     - name: build image
       run : |
-      docker build -t manjunadh965/expense:${{ github.sha }} .
-      docker tag manjunadh965/expense:${{ github.sha }} manjunadh965/expense:latest
+        docker build -t manjunadh965/expense:${{ github.sha }} .
+        docker tag manjunadh965/expense:${{ github.sha }} manjunadh965/expense:latest
 
     - name: docker login 
       uses: docker/login-action@v2
