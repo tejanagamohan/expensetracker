@@ -15,7 +15,7 @@ const filterForm = document.getElementById("filter-form");
 
 function temp(data) {
     resetDataForm.addEventListener("click", function (event) {
-        
+        console.log("test")
         filterForm.reset();
         console.log("table", data.table)
         updateTransactionTable(data);
